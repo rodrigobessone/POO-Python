@@ -1,0 +1,76 @@
+class Car:
+    def __init__(self, make, model, year, speed=0):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.speed = speed
+        self.mileage = 0
+        self.is_running = False
+
+    def start(self):
+        self.is_running = True
+
+    def stop(self):
+        self.is_running = False
+
+    def accelerate(self, amount):
+        if self.is_running:
+            self.speed += amount
+
+    def brake(self, amount):
+        if self.is_running:
+            self.speed -= amount
+
+    def get_speed(self):
+        return self.speed
+
+    def drive(self, amount):
+        if self.is_running:
+            self.mileage += amount
+
+class Fleet:
+    def __init__(self):
+        self.cars = []
+
+    def add_car(self, car):
+        self.cars.append(car)
+
+    def remove_car(self, car):
+        self.cars.remove(car)
+
+    def get_mileage(self):
+        total_mileage = 0
+        for car in self.cars:
+            total_mileage += car.mileage
+        return total_mileage
+
+    def get_speed(self):
+        return sum(car.speed for car in self.cars)
+
+
+my_fleet = Fleet()
+my_car1 = Car("Toyota", "Camry", 2020)
+my_car2 = Car("Honda", "Civic", 2019)
+my_car3 = Car("Ford", "Focus", 2018)
+my_fleet.add_car(my_car1)
+my_fleet.add_car(my_car2)
+my_fleet.add_car(my_car3)
+
+my_car1.start()
+my_car1.accelerate(20)
+my_car1.drive(100)
+
+my_car2.start()
+my_car2.accelerate(30)
+my_car2.drive(200)
+
+my_car3.start()
+my_car3.accelerate(25)
+my_car3.drive(150)
+
+my_car1.stop()
+my_car2.stop()
+my_car3.stop()
+
+print("Total mileage of the fleet: ", my_fleet.get_mileage())
+print("Total speed of the fleet: ", my_fleet.get_speed())
